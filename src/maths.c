@@ -33,14 +33,16 @@ char division (float numeroUno, float numeroDos)
 
 }
 
-long int factorial(int numero)
+unsigned long long factorial(int numero)
 {
     int i;
-    long resultado;
+    unsigned long long resultado;
     resultado = 1;
-    for (i=numero; i > 0; i--)
-    {
-        resultado*=i;
+    if (numero > 1){
+    	for (i=numero; i > 0; i--)
+    	{
+    		resultado*=i;
+    	}
     }
     return resultado;
 }

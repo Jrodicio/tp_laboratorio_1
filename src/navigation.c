@@ -2,7 +2,6 @@
 
 void menu (int numeroUno, int numeroDos, int ingresoUno, int ingresoDos)
 {
-
 	system("clear");
 	printf("=======================================\n");
 	printf("              Calculadora              \n");
@@ -32,4 +31,16 @@ void menu (int numeroUno, int numeroDos, int ingresoUno, int ingresoDos)
 	printf("5. Salir\n");
 	printf("=======================================\n");
 
+}
+
+
+int pause (char mensaje[])
+{
+
+	printf("%s",mensaje);
+
+	__fpurge(stdin);
+	getchar();
+
+	return 0;
 }

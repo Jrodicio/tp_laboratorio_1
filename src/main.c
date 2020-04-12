@@ -11,10 +11,10 @@ int main()
 
 	int resultadoSuma;
 	int resultadoResta;
-	long resultadoMultiplicacion;
+	int resultadoMultiplicacion;
 	float resultadoDivision;
-	long factorialUno;
-	long factorialDos;
+	unsigned long long factorialUno;
+	unsigned long long factorialDos;
 
 	int ingresadoUno = 0;
 	int ingresadoDos = 0;
@@ -43,7 +43,7 @@ int main()
 					resultadoMultiplicacion = multiplicacion(numeroUno,numeroDos);
 					resultadoDivision = division(numeroUno,numeroDos);
 					factorialUno = factorial(numeroUno);
-					factorialDos =factorial(numeroDos);
+					factorialDos = factorial(numeroDos);
 					calculosRealizados = 1;
 				}
 				else {
@@ -58,25 +58,40 @@ int main()
 					printf("c. El resultado de %d*%d es: %d\n",numeroUno,numeroDos,resultadoMultiplicacion);
 					if (numeroDos != 0)
 					{
-						printf("d. El resultado de %d/%d es: %2.f\n",numeroUno,numeroDos,resultadoDivision);
+						printf("d. El resultado de %d/%d es: %.2f\n",numeroUno,numeroDos,resultadoDivision);
 					}
 					else
 					{
 						printf("d. No es posible dividir por cero.\n");
 					}
-					printf("e. El factorial de %d es: %ld. Y el factorial de %d es: %ld\n",numeroUno,factorialUno,numeroDos,factorialDos);
-					getchar();
+					if (numeroUno < 0){
+						printf("e. No se puede calcular el factorial de %d por ser negativo. ",numeroUno);
+					}
+					else
+					{
+						printf("e. El factorial de %d es: %llu. ",numeroUno,factorialUno);
+					}
+					if (numeroDos < 0)
+					{
+						printf("No se puede calcular el factorial de %d por ser negativo.\n",numeroDos);
+					}
+					else{
+						printf("El factorial de %d es: %llu\n",numeroDos,factorialDos);
+					}
+
 				}
 				else
 				{
-					printf("Debe calcular los resultados antes de mostrarlos.");
+					printf("Debe calcular los resultados antes de mostrarlos.\n");
 				}
+				pause("Pulse <Enter> para continuar...");
 			break;
 
 			case 5:
 				printf("\nAdiós!\n");
 			break;
 		}
+
 	} while (opcion != 5);
 	return 0;
 }
