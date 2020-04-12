@@ -22,14 +22,18 @@ float multiplicacion (float numeroUno, float numeroDos)
 	return resultado;
 }
 
-float division (float numeroUno, float numeroDos)
+char division (float numeroUno, float numeroDos)
 {
-	float resultado;
-	resultado = numeroUno/numeroDos;
+	float resultado = 0;
+	if (numeroDos != 0)
+	{
+		resultado = numeroUno/numeroDos;
+	}
 	return resultado;
+
 }
 
-long factorial(int numero)
+long int factorial(int numero)
 {
     int i;
     long resultado;
