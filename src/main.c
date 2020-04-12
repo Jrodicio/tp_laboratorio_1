@@ -24,7 +24,8 @@ int main()
 	{
 		menu(numeroUno,numeroDos,ingresadoUno,ingresadoDos);
 		opcion = getIntValidacion("Ingrese una opción: ","Opción inválida, vuelva a intentarlo: ",5,1);
-		switch (opcion){
+		switch (opcion)
+		{
 			case 1:
 				numeroUno = getInt("Ingrese 1er operando: ");
 				ingresadoUno = 1;
