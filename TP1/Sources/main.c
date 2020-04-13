@@ -1,7 +1,14 @@
+/*
+ * main.c
+ *
+ *  Created on: 13 abr. 2020
+ *      Author: julian
+ */
+
 #include <stdio.h>
-#include "maths.h"
-#include "navigation.h"
-#include "get_numbers.h"
+#include "../Headers/maths.h"
+#include "../Headers/navigation.h"
+#include "../Headers/get_numbers.h"
 
 int main()
 {

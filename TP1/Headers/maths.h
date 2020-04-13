@@ -1,3 +1,9 @@
+/*
+ * maths.h
+ *
+ *  Created on: 13 abr. 2020
+ *      Author: julian
+ */
 
 long long int suma (long long int numeroUno, long long int numeroDos);
 long long int resta (long long int numeroUno, long long int numeroDos);
