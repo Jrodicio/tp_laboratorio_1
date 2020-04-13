@@ -1,27 +1,28 @@
 #include <stdio.h>
 
-int getIntValidacion(char mensajeIngreso[], char errorIngreso[], int maximo, int minimo)
+long long int getIntValidacion(char mensajeIngreso[], char errorIngreso[], int maximo, int minimo)
 {
-	int numero;
+	long long int numero;
 
 	printf("\n%s",mensajeIngreso);
-	scanf("%d",&numero);
+	scanf("%lld",&numero);
 
 	while (numero < minimo || numero > maximo)
 	{
 		printf("\n%s",errorIngreso);
-		scanf("%d",&numero);
+		__fpurge(stdin); //Se realiza fpurge porque al ingresar un valor no númerico, quedaba en un bucle infinito.
+		scanf("%lld",&numero);
 	}
 
 	return numero;
 }
 
-int getInt(char mensajeIngreso[])
+long long int getInt(char mensajeIngreso[])
 {
-	int numero;
+	long long int numero;
 
 	printf("\n%s",mensajeIngreso);
-	scanf("%d",&numero);
+	scanf("%lld",&numero);
 
 	return numero;
 }

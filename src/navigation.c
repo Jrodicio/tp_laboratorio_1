@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-void menu (int numeroUno, int numeroDos, int ingresoUno, int ingresoDos)
+void menu (long long int numeroUno, long long int numeroDos, int ingresoUno, int ingresoDos)
 {
 	system("clear");
 	printf("=======================================\n");
@@ -12,7 +12,7 @@ void menu (int numeroUno, int numeroDos, int ingresoUno, int ingresoDos)
 	printf("\n");
 	if (ingresoUno == 1)
 	{
-		printf("1. Ingresar 1er operando (A=%d)\n",numeroUno);
+		printf("1. Ingresar 1er operando (A=%lld)\n",numeroUno);
 	}
 	else
 	{
@@ -20,7 +20,7 @@ void menu (int numeroUno, int numeroDos, int ingresoUno, int ingresoDos)
 	}
 	if (ingresoDos == 1)
 	{
-		printf("2. Ingresar 2do operando (B=%d)\n",numeroDos);
+		printf("2. Ingresar 2do operando (B=%lld)\n",numeroDos);
 	}
 	else
 	{
@@ -34,13 +34,11 @@ void menu (int numeroUno, int numeroDos, int ingresoUno, int ingresoDos)
 }
 
 
-int pause (char mensaje[])
+void pause (char mensaje[])
 {
 
 	printf("%s",mensaje);
-
 	__fpurge(stdin);
 	getchar();
 
-	return 0;
 }

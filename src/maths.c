@@ -1,30 +1,30 @@
 #include <stdio.h>
 
 
-float suma (float numeroUno, float numeroDos)
+long long int suma (long long int numeroUno, long long int numeroDos)
 {
-	float resultado;
+	long long int resultado;
 	resultado = numeroUno+numeroDos;
 	return resultado;
 }
 
-float resta (float numeroUno, float numeroDos)
+long long int resta (long long int numeroUno, long long int numeroDos)
 {
-	float resultado;
+	long long int resultado;
 	resultado = numeroUno-numeroDos;
 	return resultado;
 }
 
-float multiplicacion (float numeroUno, float numeroDos)
+long long int multiplicacion (long long int numeroUno, long long int numeroDos)
 {
-	float resultado;
+	long long int resultado;
 	resultado = numeroUno*numeroDos;
 	return resultado;
 }
 
-char division (float numeroUno, float numeroDos)
+double division (long long int numeroUno, long long int numeroDos)
 {
-	float resultado = 0;
+	double resultado = 0;
 	if (numeroDos != 0)
 	{
 		resultado = numeroUno/numeroDos;
@@ -33,16 +33,21 @@ char division (float numeroUno, float numeroDos)
 
 }
 
-unsigned long long factorial(int numero)
+unsigned long long factorial(long long int numero)
 {
     int i;
     unsigned long long resultado;
     resultado = 1;
-    if (numero > 1){
+    if (numero >= 0 && numero <= 20){
     	for (i=numero; i > 0; i--)
     	{
     		resultado*=i;
     	}
     }
+    else
+    {
+    	resultado = 0;
+    }
+
     return resultado;
 }

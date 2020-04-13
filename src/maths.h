@@ -1,6 +1,6 @@
 
-float suma (float number, float numberDos);
-float resta (float number, float numberDos);
-float multiplicacion (float number, float numberDos);
-float division (float number, float numberDos);
-long factorial(int numero);
+long long int suma (long long int numeroUno, long long int numeroDos);
+long long int resta (long long int numeroUno, long long int numeroDos);
+long long int multiplicacion (long long int numeroUno, long long int numeroDos);
+double division (long long int numeroUno, long long int numeroDos);
+unsigned long long factorial(long long int numero);
