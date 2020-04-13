@@ -22,7 +22,7 @@ long long int multiplicacion (long long int numeroUno, long long int numeroDos)
 	return resultado;
 }
 
-double division (long long int numeroUno, long long int numeroDos)
+double division (double numeroUno, double numeroDos)
 {
 	double resultado = 0;
 	if (numeroDos != 0)

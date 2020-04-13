@@ -63,12 +63,12 @@ int main()
 
 				if (calculosRealizados == 1){
 					printf("\nResultados\n");
-					printf("a. El resultado de %lld+%lld es: %lld\n",primerNumero,segundoNumero,resultadoSuma);
-					printf("b. El resultado de %lld-%lld es: %lld\n",primerNumero,segundoNumero,resultadoResta);
-					printf("c. El resultado de %lld*%lld es: %lld\n",primerNumero,segundoNumero,resultadoMultiplicacion);
+					printf("a. El resultado de (%lld)+(%lld) es: %lld\n",primerNumero,segundoNumero,resultadoSuma);
+					printf("b. El resultado de (%lld)-(%lld) es: %lld\n",primerNumero,segundoNumero,resultadoResta);
+					printf("c. El resultado de (%lld)*(%lld) es: %lld\n",primerNumero,segundoNumero,resultadoMultiplicacion);
 					if (segundoNumero != 0)
 					{
-						printf("d. El resultado de %lld/%lld es: %.4f\n",primerNumero,segundoNumero,resultadoDivision);
+						printf("d. El resultado de (%lld)/(%lld) es: %.4f\n",primerNumero,segundoNumero,resultadoDivision);
 					}
 					else
 					{
