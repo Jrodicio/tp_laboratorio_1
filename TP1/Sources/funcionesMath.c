@@ -1,13 +1,4 @@
-/*
- * maths.c
- *
- *  Created on: 13 abr. 2020
- *      Author: julian
- */
-
-
 #include <stdio.h>
-
 
 long long int suma (long long int numeroUno, long long int numeroDos)
 {
@@ -32,21 +23,20 @@ long long int multiplicacion (long long int numeroUno, long long int numeroDos)
 
 double division (double numeroUno, double numeroDos)
 {
-	double resultado = 0;
-	if (numeroDos != 0)
-	{
-		resultado = numeroUno/numeroDos;
-	}
+	double resultado;
+	resultado = numeroUno/numeroDos;
 	return resultado;
 
 }
 
 unsigned long long factorial(long long int numero)
 {
-    int i;
-    unsigned long long resultado;
-    resultado = 1;
-    if (numero >= 0 && numero <= 20){
+	unsigned long long resultado;
+	int i;
+    // Números negativos no tienen factorial. Los mayores a 20 no pueden obtenerse porque llegan al límite del tipo de dato.
+	if (numero >= 0 && numero <= 20)
+    {
+    	resultado = 1;
     	for (i=numero; i > 0; i--)
     	{
     		resultado*=i;
