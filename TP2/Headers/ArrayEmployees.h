@@ -120,23 +120,52 @@ void printEmployee(Employee myEmployee);
  * */
 void printEmployeeHeader(void);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*\fn equalEmployees
+ * \brief compare two Employees.
+ * \param myEmployee Employee
+ * \param otherEmployee Employee
+ * \return int: (1) if both Employees are equals, (0) if not.
+ * */
 int equalEmployees(Employee myEmployee, Employee otherEmployee);
+
+/*\fn countEmployees
+ * \brief count Employees of listaEmpleados[] that aren't empty.
+ * \param listaEmpleados[] Employee
+ * \param sizeEmpleados int
+ * \return int: Employees not emptys quantity.
+ * */
 int countEmployees (Employee listaEmpleados[], int sizeEmpleados);
+
+/*\fn acumSalaryEmployee
+ * \brief acum salary's Employees in listaEmpleados[] that aren't empty.
+ * \param listaEmpleados[] Employee
+ * \param sizeEmpleados int
+ * \return double: salary acum
+ * */
 double acumSalaryEmployee(Employee listaEmpleados[], int sizeEmpleados);
+
+/*\fn countEmployeesSalarioMayorA
+ * \brief count Employees of listaEmpleados[] that aren't empty and theirs salarys are more than salarioASuperar.
+ * \param listaEmpleados[] Employee
+ * \param sizeEmpleados int
+ * \param salarioASuperar float
+ * \return int: Employees not emptys and salary > salarioASuperar quantity.
+ * */
 int countEmployeesSalarioMayorA(Employee listaEmpleados[], int sizeEmpleados, float salarioASuperar);
+
+/*\fn copyEmployeesList
+ * \brief copy listaEmpleados[] to auxListaEmpleados[].
+ * \param listaEmpleados[] Employee
+ * \param auxListaEmpleados[] Employee
+ * \param sizeEmpleados int
+ * \return void
+ * */
 void copyEmployeesList(Employee listaEmpleados[],Employee auxListaEmpleados[], int sizeEmpleados);
 
+/*\fn getMaxIDEmployee
+ * \brief get the max ID of the not emptys employees of listaEmpleados[].
+ * \param listaEmpleados[] Employee
+ * \param sizeEmpleados int
+ * \return int: higher ID of the not emptys employees.
+ **/
 int getMaxIDEmployee(Employee listaEmpleados[], int sizeEmpleados);

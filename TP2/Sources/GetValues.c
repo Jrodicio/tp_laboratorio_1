@@ -88,7 +88,7 @@ void UpperPrimerasLetras(char arrayChar[])
     }
 }
 
-float getFloat(char mensaje[], char mensajeError[], float minimo)
+float getFloatConMinimo(char mensaje[], char mensajeError[], float minimo)
 {
 	float valor;
 

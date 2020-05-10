@@ -72,7 +72,7 @@ Employee inputEmployeeLastName(Employee myEmployee)
 
 Employee inputEmployeeSalary(Employee myEmployee)
 {
-	myEmployee.salary = getFloat("Ingrese el sueldo: ","Valor inválido, por favor vuelva a intentarlo: ", 0);
+	myEmployee.salary = getFloatConMinimo("Ingrese el sueldo: ","Valor inválido, por favor vuelva a intentarlo: ", 0);
 	return myEmployee;
 }
 

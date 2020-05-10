@@ -58,10 +58,27 @@ void ArrayToLower(char arrayChar[]);
 void UpperPrimerasLetras(char arrayChar[]);
 
 
+/**
+ * \fn float getFloatConMinimo(char mensaje[], char mensajeError[], float minimo)
+ * \brief Nos permite obtener un número flotante mayor a "minimo"
+ * \param char mensaje[]: Mensaje de ingreso de dato
+ * \param char mensajeError[]: Mensaje de ingreso de dato en caso de error en intento anterior
+ * \param float minimo: valor mínimo permitido para ingresar.
+ * \return float: retorna número ingresado validado.
+ *  */
+float getFloatConMinimo(char mensaje[], char mensajeError[], float minimo);
 
-float getFloat(char mensaje[], char mensajeError[], float minimo);
-
+/* \fn msjConfirmar(char mensaje[])
+ * \brief Nos muestra un mensaje para responder con S o N.
+ * \param char mensaje[]: Mensaje de solicitud de confirmación
+ * \return int: (1) si la respuesta es S. (0) si la respuesta es N.
+ * */
 int msjConfirmar(char mensaje[]);
 
-
+/* \fn getProm(double value, int quantity)
+ * \brief Calcula promedio de value sobre quantity.
+ * \param double value: dividendo del promedio.
+ * \param int quantity: divisor del promedio.
+ * \return double: resultado de la division.
+ * */
 double getProm(double value, int quantity);

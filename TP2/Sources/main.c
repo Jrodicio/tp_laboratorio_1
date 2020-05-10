@@ -3,10 +3,11 @@
 #include "../Headers/ArrayEmployees.h"
 #include "../Headers/Menu.h"
 #include "../Headers/GetValues.h"
+
 #define OPCIONESMENUPRINCIPAL 5
 #define OPCIONESMENUMODIFICAR 6
 #define OPCIONESMENUINFORMAR 2
-#define MAXIMOEMPLEADOS 10
+#define MAXIMOEMPLEADOS 1000
 #define TRUE 1
 #define FALSE 0
 
@@ -38,7 +39,7 @@ int main()
 
 	//Inicializamos lista empleados, hardcodeamos y contamos.
 	initEmployees(listaEmpleados,MAXIMOEMPLEADOS);
-	hardcodearEmployees(listaEmpleados,MAXIMOEMPLEADOS); //Hardcodeamos 10 empleados para realizar pruebas.
+	//hardcodearEmployees(listaEmpleados,MAXIMOEMPLEADOS); //Hardcodeamos 10 empleados para realizar pruebas.
 	cantidadEmpleados = countEmployees(listaEmpleados,MAXIMOEMPLEADOS);
 	lastEmployeeId = getMaxIDEmployee(listaEmpleados, MAXIMOEMPLEADOS);
 
@@ -95,7 +96,7 @@ int main()
 					do
 					{
 						system("clear");
-						continuarModificacion = 1;
+						continuarModificacion = TRUE;
 						printMenuHeader("Modificación empleado");
 						printf("\nEmpleado guardado:");
 						printEmployeeHeader();
@@ -147,19 +148,19 @@ int main()
 							case 6: //SALIR
 								if (equalEmployees(auxEmployee,listaEmpleados[auxIndex]))
 								{
-									continuarModificacion = 0;
+									continuarModificacion = FALSE;
 								}
 								else
 								{
 									if (msjConfirmar("Se perderán los cambios no guardados, ¿está seguro?"))
 									{
-										continuarModificacion = 0;
+										continuarModificacion = FALSE;
 									}
 								}
 							break;
 						}
 
-					}while(continuarModificacion);
+					}while(continuarModificacion == TRUE);
 				}
 
 
