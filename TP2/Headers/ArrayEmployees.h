@@ -19,7 +19,7 @@ struct
 */
 int initEmployees(Employee* list, int len);
 
-
+int hardcodearEmployees(Employee listaEmpleados[], int sizeEmpleados);
 /**\fn addEmployee
  * \brief 	add in a existing list of employees the values received as parameters
 * 			in the first empty position
@@ -34,10 +34,12 @@ int initEmployees(Employee* list, int len);
 */
 int addEmployee(Employee* list, int len, int id, char name[],char lastName[],float salary,int sector);
 
-void inputEmployeeName(Employee myEmployee);
-void inputEmployeeLastName(Employee myEmployee);
-void inputEmployeeSalary(Employee myEmployee);
-void inputEmployeeSector(Employee myEmployee);
+Employee inputEmployeeData(int nextEmployeeID);
+
+Employee inputEmployeeName(Employee myEmployee);
+Employee inputEmployeeLastName(Employee myEmployee);
+Employee inputEmployeeSalary(Employee myEmployee);
+Employee inputEmployeeSector(Employee myEmployee);
 
 /*\fn findEmptyEmployee
  * \brief find the first empty position of an Employee array.
@@ -110,3 +112,31 @@ int printEmployees(Employee* list, int length);
  * \return void
  * */
 void printEmployee(Employee myEmployee);
+
+/*\fn printEmployeeHeader
+ * \brief prints the headers of an Employee datatype.
+ * \param void
+ * \return void
+ * */
+void printEmployeeHeader(void);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int equalEmployees(Employee myEmployee, Employee otherEmployee);
+int countEmployees (Employee listaEmpleados[], int sizeEmpleados);
+double acumSalaryEmployee(Employee listaEmpleados[], int sizeEmpleados);
+int countEmployeesSalarioMayorA(Employee listaEmpleados[], int sizeEmpleados, float salarioASuperar);
+void copyEmployeesList(Employee listaEmpleados[],Employee auxListaEmpleados[], int sizeEmpleados);
+
+int getMaxIDEmployee(Employee listaEmpleados[], int sizeEmpleados);

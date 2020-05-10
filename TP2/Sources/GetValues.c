@@ -1,5 +1,7 @@
 #include <stdio.h>
+#include <stdio_ext.h>
 #include <string.h>
+#include <ctype.h>
 #include "../Headers/GetValues.h"
 
 int arrayLength(char arrayChar[])
@@ -102,3 +104,35 @@ float getFloat(char mensaje[], char mensajeError[], float minimo)
 
 	return valor;
 }
+
+
+int msjConfirmar(char mensaje[])
+{
+	int retorno = 0;
+	char respuesta;
+
+	do{
+		printf("\n%s (S/n)",mensaje);
+		__fpurge(stdin);
+		scanf("%c",&respuesta);
+
+	}while (respuesta != 'S' && respuesta != 's' && respuesta != 'N' && respuesta != 'n');
+
+	if (respuesta == 'S' || respuesta == 's')
+	{
+		retorno = 1;
+	}
+
+	return retorno;
+}
+
+double getProm(double value, int quantity)
+{
+	double retorno;
+
+	retorno = value / quantity;
+
+	return retorno;
+}
+
+

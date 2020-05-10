@@ -1,11 +1,9 @@
-struct
-{
-	char titulo[30];
-	int length;
-	char opcion[4][30];
+void printMenu(char titulo[], char opciones[][30], int length);
 
-}typedef eMenu;
+void printMenuHeader(char header[]);
 
-void printMenu(eMenu menu);
+int menuOptionGet(char titulo[], char opciones[][30], int length);
 
 void pausa (char mensaje[]);
+
+

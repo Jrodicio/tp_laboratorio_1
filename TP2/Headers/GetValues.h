@@ -61,3 +61,7 @@ void UpperPrimerasLetras(char arrayChar[]);
 
 float getFloat(char mensaje[], char mensajeError[], float minimo);
 
+int msjConfirmar(char mensaje[]);
+
+
+double getProm(double value, int quantity);
