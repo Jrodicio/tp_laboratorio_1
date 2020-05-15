@@ -7,39 +7,40 @@
 
 int initEmployees(Employee* list, int len)
 {
-	int retorno = 1;
+	int retorno = -1;
 	int i;
-	//si len es válido y list es not null.
-	for (i=0;i<len;i++)
+
+	if (list && len >= 0)
 	{
-		//inicializo y retorno 1 luego
-		list[i].isEmpty = TRUE;
+		retorno = 1;
+		for (i=0;i<len;i++)
+		{
+			list[i].isEmpty = TRUE;
+		}
 	}
-	//sino, retorno = 0.
+
 	return retorno;
 }
 
 int addEmployee(Employee* list, int len, int id, char name[],char lastName[],float salary,int sector)
 {
 	int i;
-	int retorno = 0;
+	int retorno = -1;
 
-	i = findEmptyEmployee(list, len); //Buscar primer lugar libre en list
-
-	if (i == -1)
+	if (list && len >= 0)
 	{
-		retorno = i; //Si no hay espacio libre, retorna -1.
-	}
-	else //Cargar en list[freeIndex].datos los parametros.
-	{
-		list[i].id = id;
-		strcpy(list[i].name,name);
-		strcpy(list[i].lastName,lastName);
-		list[i].salary = salary;
-		list[i].sector = sector;
-		list[i].isEmpty = FALSE;
-	}
+		i = findEmptyEmployee(list, len); //Buscar primer lugar libre en list
 
+		if (i > -1) //Cargar en list[freeIndex].datos los parametros.
+		{
+			list[i].id = id;
+			strcpy(list[i].name,name);
+			strcpy(list[i].lastName,lastName);
+			list[i].salary = salary;
+			list[i].sector = sector;
+			list[i].isEmpty = FALSE;
+		}
+	}
 	return retorno;
 }
 
@@ -103,12 +104,15 @@ int findEmployeeById(Employee* list, int len,int id)
 {
 	int variableRetorno = -1;
 	int i;
-	for (i=0;i<len;i++)
+	if (list && len >= 0)
 	{
-		if (list[i].isEmpty == FALSE && list[i].id == id)
+		for (i=0;i<len;i++)
 		{
-			variableRetorno = i;
-			break;
+			if (list[i].isEmpty == FALSE && list[i].id == id)
+			{
+				variableRetorno = i;
+				break;
+			}
 		}
 	}
 	return variableRetorno;
@@ -116,16 +120,16 @@ int findEmployeeById(Employee* list, int len,int id)
 
 int removeEmployee(Employee* list, int len, int id)
 {
-	int retorno = 0;
-	int index = findEmployeeById(list,len,id);
+	int retorno = -1;
+	int index;
 
-	if (index == -1)
+	if (list && len >= 0)
 	{
-		retorno = -1;
-	}
-	else
-	{
-		list[index].isEmpty = TRUE;
+		index = findEmployeeById(list,len,id);
+		if (index > -1)
+		{
+			list[index].isEmpty = TRUE;
+		}
 	}
 
 	return retorno;
@@ -133,45 +137,50 @@ int removeEmployee(Employee* list, int len, int id)
 
 int sortEmployees(Employee* list, int len, int order)
 {
+	int retorno = -1;
 	int i;
 	int j;
 	Employee auxEmployee;
 
-	for(i=0;i<len-1;i++)
+	if (list && len >= 0)
 	{
-		if (list[i].isEmpty == TRUE)
+		retorno = 0;
+		for(i=0;i<len-1;i++)
 		{
-			continue;
-		}
-
-		for(j=i+1;j<len;j++)
-		{
-			if (list[j].isEmpty == TRUE)
+			if (list[i].isEmpty == TRUE)
 			{
 				continue;
 			}
 
-			if((order && strcmp(list[i].lastName,list[j].lastName)>0) || (!order && strcmp(list[i].lastName,list[j].lastName)<0) )
+			for(j=i+1;j<len;j++)
 			{
-				auxEmployee = list[i];
-				list[i] = list[j];
-				list[j] = auxEmployee;
-			}
-			else
-			{
-				if(strcmp(list[i].lastName,list[j].lastName)==0)
+				if (list[j].isEmpty == TRUE)
 				{
-					if((order && list[i].sector > list[j].sector) || (!order && list[i].sector < list[j].sector))
+					continue;
+				}
+
+				if((order && strcmp(list[i].lastName,list[j].lastName)>0) || (!order && strcmp(list[i].lastName,list[j].lastName)<0) )
+				{
+					auxEmployee = list[i];
+					list[i] = list[j];
+					list[j] = auxEmployee;
+				}
+				else
+				{
+					if(strcmp(list[i].lastName,list[j].lastName)==0)
 					{
-						auxEmployee = list[i];
-						list[i] = list[j];
-						list[j] = auxEmployee;
+						if((order && list[i].sector > list[j].sector) || (!order && list[i].sector < list[j].sector))
+						{
+							auxEmployee = list[i];
+							list[i] = list[j];
+							list[j] = auxEmployee;
+						}
 					}
 				}
 			}
 		}
 	}
-	return 0;
+	return retorno;
 }
 
 
@@ -179,6 +188,7 @@ int sortEmployees(Employee* list, int len, int order)
 int printEmployees(Employee* list, int length)
 {
 	int i;
+
 	printEmployeeHeader();
 	for(i=0;i<length;i++)
 	{
@@ -235,7 +245,7 @@ int hardcodearEmployees(Employee listaEmpleados[], int sizeEmpleados)
 										{7,"Jonhy","Melkio",4000,2,0},
 										{8,"Javier","Cuevas",4000,2,0},
 										{9,"Rodra","Correa",5000,1,0},
-										{10,"Remi","Cajallena",10000,1,1}};
+										{10,"Remi","Fullbox",10000,1,1}};
 	for (i=0;i<10;i++)
 	{
 		listaEmpleados[i] = auxListaEmpleados[i];
@@ -266,11 +276,9 @@ double acumSalaryEmployee(Employee listaEmpleados[], int sizeEmpleados)
 
 	for (i=0;i<sizeEmpleados;i++)
 	{
-		printf("\nDEBUG SALARIO: %f-\n",acumSalary);
 		if (listaEmpleados[i].isEmpty == FALSE)
 		{
 			acumSalary+=listaEmpleados[i].salary;
-			printf("\nDEBUG SALARIO: %f-\n",acumSalary);
 		}
 	}
 

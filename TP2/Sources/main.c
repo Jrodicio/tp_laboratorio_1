@@ -19,7 +19,7 @@ int main()
 	int lastEmployeeId;
 	int salir = 0;
 
-	char opcionesMenuPrincipal[OPCIONESMENUPRINCIPAL][30] = {"ALTAS","MODIFICAR","BAJA","INFORMAR","SALIR"};
+	char opcionesMenuPrincipal[OPCIONESMENUPRINCIPAL][30] = {"ALTAS","MODIFICAR","BAJA","INFORMAR","SALIR"}; //Se agrega opción "SALIR" por más que el enunciado no la haya estimado.
 	char opcionesMenuModificar[OPCIONESMENUMODIFICAR][30] = {"Modificar nombre","Modificar apellido", "Modificar salario", "Modificar sector", "Guardar", "Salir"};
 	char opcionesMenuInformar[OPCIONESMENUINFORMAR][30] = {"Invertir orden empleados","Volver al menú anterior"};
 
@@ -37,7 +37,6 @@ int main()
 
 	int cantidadEmpleados;
 
-	//Inicializamos lista empleados, hardcodeamos y contamos.
 	initEmployees(listaEmpleados,MAXIMOEMPLEADOS);
 	//hardcodearEmployees(listaEmpleados,MAXIMOEMPLEADOS); //Hardcodeamos 10 empleados para realizar pruebas.
 	cantidadEmpleados = countEmployees(listaEmpleados,MAXIMOEMPLEADOS);
@@ -77,7 +76,7 @@ int main()
 				}
 
 			break;
-			//TODO OK
+
 
 			case 2:
 				printMenuHeader("Modificación empleado");
@@ -165,7 +164,7 @@ int main()
 
 
 			break;
-			//TODO OK
+
 			case 3: //Baja Empleado
 				printMenuHeader("Búsqueda empleado");
 				printEmployees(listaEmpleados,MAXIMOEMPLEADOS);
@@ -193,7 +192,7 @@ int main()
 					}
 				}
 			break;
-			//TODO OK
+
 			case 4: //Informar
 				ordenListarEmpleados = 1;
 
@@ -233,7 +232,7 @@ int main()
 			break;
 		}
 
-	}while (!salir); //El menú no tiene opción de salir en enunciado. Por lo tanto se deja bucle infinito.
+	}while (!salir);
 
 	return 0;
 }

@@ -17,8 +17,7 @@ void inputArray (char arrayChar[],int longitudMaxima, char mensajeIngreso[]);
 /*\fn quitarSaltosArray
  * \brief reemplaza los \n de un array por \0
  * \param arrayChar char[]
- * \param longitudMaxima int
- * \param mensajeIngreso char[]
+ * \param length int
  * \return void
  * */
 void quitarSaltosArray(char arrayChar[], int length);

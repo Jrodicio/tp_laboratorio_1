@@ -34,11 +34,39 @@ int hardcodearEmployees(Employee listaEmpleados[], int sizeEmpleados);
 */
 int addEmployee(Employee* list, int len, int id, char name[],char lastName[],float salary,int sector);
 
+/*\fn inputEmployeeData
+ * \brief allows the user to enter all the employee's information except for the ID.
+ * \param nextEmployeeID int: ID to be used.
+ * \return Employee
+ * */
 Employee inputEmployeeData(int nextEmployeeID);
 
+/*\fn inputEmployeeName
+ * \brief allows the user to enter the employee's name.
+ * \param myEmployee Employee: Employee where the user is going to enter information.
+ * \return Employee
+ * */
 Employee inputEmployeeName(Employee myEmployee);
+
+/*\fn inputEmployeeLastName
+ * \brief allows the user to enter the employee's last name.
+ * \param myEmployee Employee: Employee where the user is going to enter information.
+ * \return Employee
+ * */
 Employee inputEmployeeLastName(Employee myEmployee);
+
+/*\fn inputEmployeeSalary
+ * \brief allows the user to enter the employee's salary.
+ * \param myEmployee Employee: Employee where the user is going to enter information.
+ * \return Employee
+ * */
 Employee inputEmployeeSalary(Employee myEmployee);
+
+/*\fn inputEmployeeSector
+ * \brief allows the user to enter the employee's sector.
+ * \param myEmployee Employee: Employee where the user is going to enter information.
+ * \return Employee
+ * */
 Employee inputEmployeeSector(Employee myEmployee);
 
 /*\fn findEmptyEmployee
