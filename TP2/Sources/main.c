@@ -35,7 +35,7 @@ int main()
 	double salarioPromedio;
 	int empleadosSuperanSalarioPromedio;
 
-	int cantidadEmpleados;
+	int cantidadEmpleados = 0;
 
 	initEmployees(listaEmpleados,MAXIMOEMPLEADOS);
 	//hardcodearEmployees(listaEmpleados,MAXIMOEMPLEADOS); //Hardcodeamos 10 empleados para realizar pruebas.
@@ -67,7 +67,6 @@ int main()
 				if (retornoFuncion == 0)
 				{
 					cantidadEmpleados++;
-
 					pausa("Empleado dado de alta correctamente. Pulse <Enter> para continuar...");
 				}
 				else

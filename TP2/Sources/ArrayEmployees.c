@@ -39,6 +39,8 @@ int addEmployee(Employee* list, int len, int id, char name[],char lastName[],flo
 			list[i].salary = salary;
 			list[i].sector = sector;
 			list[i].isEmpty = FALSE;
+
+			retorno = 0;
 		}
 	}
 	return retorno;
