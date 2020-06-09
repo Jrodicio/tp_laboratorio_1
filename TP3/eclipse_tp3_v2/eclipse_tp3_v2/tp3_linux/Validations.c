@@ -38,3 +38,15 @@ int charInString(char character, char* string)
 	}
 	return retorno;
 }
+
+int intRange(int number, int max, int min)
+{
+	int retorno = 0;
+	if (number >= min && number <= max)
+	{
+		retorno = 1;
+	}
+	return retorno;
+}
+
+

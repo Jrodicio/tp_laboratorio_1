@@ -10,5 +10,6 @@
 
 int stringIsAlpha(char* string);
 int charInString(char character, char* string);
+int intRange(int number, int max, int min);
 
 #endif /* VALIDATIONS_H_ */

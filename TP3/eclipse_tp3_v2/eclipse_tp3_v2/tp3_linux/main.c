@@ -3,6 +3,7 @@
 #include "LinkedList.h"
 #include "Controller.h"
 #include "Employee.h"
+#include "GetValues.h"
 
 /****************************************************
     Menu:
@@ -30,17 +31,59 @@ int main()
     LinkedList* listaEmpleados = ll_newLinkedList();
 
     do{
-        switch(opcionIngresada)
-        {
-            case 1:
-            	cantEmployee = controller_loadFromText("/data.csv",listaEmpleados);
+       // printMenu();
 
-                for(i=0; i<cantEmployee; i++)
+
+    	system("clear");
+    	switch(opcionIngresada)
+        {
+    		case 1:
+				cantEmployee = controller_loadFromText("data.csv",listaEmpleados);
+
+				getLastEmployeeID(&i);
+				printf("LastID: %d\n",i);
+				controller_editEmployee(listaEmpleados);
+				/* ListClients
+				i = 0;
+				while ((auxEmployee = (Employee*) ll_get(listaEmpleados, i)))
 				{
-                	auxEmployee = (Employee*) ll_get(listaEmpleados, i);
-                	printf("%5d | %10s | %5d | %7d\n", auxEmployee->id, auxEmployee->nombre, auxEmployee->horasTrabajadas, auxEmployee->sueldo);
+					i++;
+					printf("%5d | %10s | %5d | %7d\n", auxEmployee->id, auxEmployee->nombre, auxEmployee->horasTrabajadas, auxEmployee->sueldo);
+					if (i == 5)
+						i = 1000;
+				}*/
+
+				if(cantEmployee > 0)
+				{
+					pausa("Se ha cargado la lista de empleados correctamente");
 				}
-                break;
+				else
+				{
+					pausa("El archivo no posee empleados o no se ha podido leer.");
+				}
+
+				break;
+
+            case 2:
+            	pausa("AIUDA");
+            	break;
+            case 3:
+            	if(controller_addEmployee(listaEmpleados))
+            	{
+            		pausa("Empleado cargado con éxito");
+            	}
+            	else
+            	{
+            		pausa("Cancelando alta de empleado");
+            	}
+
+            	break;
+            case 4:
+            	controller_editEmployee(listaEmpleados);
+            	break;
+            default:
+            	pausa("Opción incorrecta");
+            	break;
         }
 
         opcionIngresada = 10;

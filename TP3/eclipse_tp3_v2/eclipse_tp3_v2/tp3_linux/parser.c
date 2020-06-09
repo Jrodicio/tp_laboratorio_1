@@ -13,21 +13,24 @@
 int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 {
 	int cantEmpleados = -1;
+	int lastID;
 	Employee* pEmployee;
-
-
 
 	if(pFile != NULL && pArrayListEmployee != NULL)
 	{
 		while (!feof(pFile))
 		{
 			pEmployee = employee_new();
-			fscanf(pFile, "\n");
-
 			if(cantEmpleados > -1)
 			{
 				fscanf(pFile, "%d,%[^,],%d,%d\n", &pEmployee->id, pEmployee->nombre, &pEmployee->horasTrabajadas, &pEmployee->sueldo);
 				ll_add(pArrayListEmployee,pEmployee);
+
+				getLastEmployeeID(&lastID);
+				if(pEmployee->id > lastID)
+				{
+					saveLastEmployeeID(pEmployee->id);
+				}
 			}
 			else
 			{
@@ -35,7 +38,6 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 			}
 			cantEmpleados++;
 		}
-
 	}
     return cantEmpleados;
 }

@@ -42,7 +42,7 @@ int getIntValidacion(char mensajeIngreso[], char errorIngreso[], int minimo, int
 
 /**
  * \fn void ArrayToLower(char arrayChar[])
- * \brief Transforma todo caracter de un array a lower case.
+ * \brief Transforma to do caracter de un array a lower case.
  * \param char arrayChar[]: array a modificarse.
  * \return void
  */

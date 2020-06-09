@@ -6,6 +6,8 @@
 C_SRCS += \
 ../Controller.c \
 ../Employee.c \
+../GetValues.c \
+../Menu.c \
 ../Validations.c \
 ../main.c \
 ../parser.c 
@@ -13,6 +15,8 @@ C_SRCS += \
 OBJS += \
 ./Controller.o \
 ./Employee.o \
+./GetValues.o \
+./Menu.o \
 ./Validations.o \
 ./main.o \
 ./parser.o 
@@ -20,6 +24,8 @@ OBJS += \
 C_DEPS += \
 ./Controller.d \
 ./Employee.d \
+./GetValues.d \
+./Menu.d \
 ./Validations.d \
 ./main.d \
 ./parser.d 
