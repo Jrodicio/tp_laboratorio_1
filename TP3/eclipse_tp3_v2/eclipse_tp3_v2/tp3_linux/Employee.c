@@ -9,45 +9,53 @@
 /*Create*/
 Employee* employee_new()
 {
-	/*Crea y retorna pEmployee sin datos.*/
+	/*Crea y retorna pEmployee*/
 
-	Employee* pEmployee;
+	int newID;
+	char newName[128];
+	int newWorkedHours;
+	int newSalary;
 
-	pEmployee = (Employee*) malloc(sizeof(Employee));
+	Employee* pEmployee = (Employee*) malloc(sizeof(Employee));
+
+	getNewID(&newID);
+
+	while(!inputName(newName))
+	{
+		pausa("El nombre es inválido");
+	}
+
+	while(!inputWorkedHours(&newWorkedHours))
+	{
+		pausa("Las horas trabajadas deben ser mayores a 0");
+	}
+
+	while(!inputSalary(&newSalary))
+	{
+		pausa("El salario debe ser mayor a 0");
+	}
+
+	employee_setId(pEmployee,newID);
+	employee_setNombre(pEmployee,newName);
+	employee_setHorasTrabajadas(pEmployee,newWorkedHours);
+	employee_setSueldo(pEmployee,newSalary);
 
 	return pEmployee;
 }
 
-
-Employee* employee_newParametros(int id,char* nombre,int horasTrabajadas,int sueldo)
+Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr,char* sueldoStr)
 {
 	//Crea pEmployee. Setea datos y retorna.
 
-	Employee* pEmployee;
-	pEmployee = employee_new();
+	Employee* pEmployee = (Employee*) malloc(sizeof(Employee));
 
-	employee_setId(pEmployee,id);
-	employee_setNombre(pEmployee,nombre);
-	employee_setHorasTrabajadas(pEmployee,horasTrabajadas);
-	employee_setSueldo(pEmployee, sueldo);
-
-	return pEmployee;
-}
-
-/*Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr,char* sueldoStr)
-{
-	//Crea pEmployee. Setea datos y retorna.
-
-	Employee* pEmployee;
-	pEmployee = employee_new();
-
-	employee_setId(pEmployee,(int) *idStr));
+	employee_setId(pEmployee,atoi(idStr));
 	employee_setNombre(pEmployee,nombreStr);
-	employee_setHorasTrabajadas(pEmployee,(int) *horasTrabajadasStr);
-	employee_setSueldo(pEmployee, (int) *sueldoStr);
+	employee_setHorasTrabajadas(pEmployee,atoi(horasTrabajadasStr));
+	employee_setSueldo(pEmployee,atoi(sueldoStr));
 
 	return pEmployee;
-}*/
+}
 
 int employee_delete(Employee* this)
 {
@@ -151,19 +159,38 @@ int employee_getHorasTrabajadas(Employee* this,int* horasTrabajadas)
 }
 
 /*Compare*/
-int employee_CompareByName(Employee* firstEmployee, Employee* secondEmployee)
+int employee_CompareByName(void* e1, void* e2)
 {
-	int retorno = 0;
+	Employee* firstEmployee = (Employee*) e1;
+	Employee* secondEmployee = (Employee*) e2;
+	int retorno;
+	int compare;
+
 	if (firstEmployee != NULL && secondEmployee != NULL)
     {
-		retorno = strcmp(firstEmployee->nombre, secondEmployee->nombre);
+		compare = strcmp(firstEmployee->nombre, secondEmployee->nombre);
+		if(compare > 0)
+		{
+			retorno = 1;
+		}
+		else if (compare < 0)
+		{
+			retorno = -1;
+		}
+		else
+		{
+			retorno = 0;
+		}
     }
 	return retorno;
 }
 
-int employee_CompareById(Employee* firstEmployee, Employee* secondEmployee)
+int employee_CompareById(void* e1, void* e2)
 {
 	int retorno = -2;
+	Employee* firstEmployee = (Employee*) e1;
+	Employee* secondEmployee = (Employee*) e2;
+
 	if (firstEmployee != NULL && secondEmployee != NULL)
 	{
 		if(firstEmployee->id > secondEmployee->id)
@@ -191,10 +218,9 @@ int saveLastEmployeeID (int lastID)
 	if(logFile != NULL)
 	{
 		fprintf(logFile,"%d",lastID);
+		fclose(logFile);
 		retorno = 1;
 	}
-	fclose(logFile);
-
 	return retorno;
 
 }
@@ -203,12 +229,14 @@ int getLastEmployeeID (int* ID)
 {
 	FILE* pFileID;
 	int retorno = 0;
-	*ID = 0;
 	pFileID = fopen("lastID.log","r");
 
 	if (pFileID != NULL && ID != NULL)
 	{
-		fscanf(pFileID, "%d[^\n]\n",ID);
+
+		fscanf(pFileID, "%d",ID);
+		retorno = 1;
+		fclose(pFileID);
 	}
 	return retorno;
 }
@@ -221,7 +249,7 @@ void getNewID(int* newID)
 
 int inputName(char* name)
 {
-	inputArray(name,128,"Ingrese nombre del empleado: ");
+	inputArray(name,127,"Ingrese nombre del empleado: ");
 	upperFirstLetters(name);
 
 	return stringIsAlpha(name);
@@ -241,7 +269,7 @@ int inputSalary(int* salary)
 int editEmployee(Employee* myEmployee)
 {
 	int option;
-	char* name;
+	char name[128];
 	int workedHours;
 	int salary;
 	int retorno = -1;
@@ -255,6 +283,7 @@ int editEmployee(Employee* myEmployee)
 
 	do
 	{
+		printf("\n\n%d -- %s -- %d -- %d\n",myEmployee->id,myEmployee->nombre, myEmployee->horasTrabajadas, myEmployee->sueldo);
 		option = inputMenuOption(menu);
 		switch(option)
 		{
@@ -312,5 +341,14 @@ int editEmployee(Employee* myEmployee)
 	}while(!salir);
 
 	return retorno;
+}
+
+void printEmployeeHeader(void)
+{
+	printf("%5s | %15s | %16s | %8s \n","ID","Nombre","Horas trabajadas","Sueldo");
+}
+void printEmployee(Employee* myEmployee)
+{
+	printf("%5d | %15s | %16d | %7d\n", myEmployee->id, myEmployee->nombre, myEmployee->horasTrabajadas, myEmployee->sueldo);
 }
 

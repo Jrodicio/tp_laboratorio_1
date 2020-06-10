@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "LinkedList.h"
 #include "Employee.h"
+#include "parser.h"
 
 /** \brief Parsea los datos de los empleados desde el archivo data.csv (modo texto).
  *
@@ -14,23 +15,32 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 {
 	int cantEmpleados = -1;
 	int lastID;
+	char id[15];
+	char nombre[128];
+	char horasTrabajadas[15];
+	char sueldo[15];
 	Employee* pEmployee;
 
 	if(pFile != NULL && pArrayListEmployee != NULL)
 	{
+
 		while (!feof(pFile))
 		{
-			pEmployee = employee_new();
+
 			if(cantEmpleados > -1)
 			{
-				fscanf(pFile, "%d,%[^,],%d,%d\n", &pEmployee->id, pEmployee->nombre, &pEmployee->horasTrabajadas, &pEmployee->sueldo);
+
+//				fscanf(pFile, "%d,%[^,],%d,%d\n", &pEmployee->id, pEmployee->nombre, &pEmployee->horasTrabajadas, &pEmployee->sueldo);
+				fscanf(pFile, "%[^,],%[^,],%[^,],%[^\n]\n", id, nombre, horasTrabajadas, sueldo);
+
+				pEmployee = employee_newParametros(id,nombre,horasTrabajadas,sueldo);
 				ll_add(pArrayListEmployee,pEmployee);
 
-				getLastEmployeeID(&lastID);
-				if(pEmployee->id > lastID)
+				if(!getLastEmployeeID(&lastID) || atoi(id) > lastID)
 				{
-					saveLastEmployeeID(pEmployee->id);
+					saveLastEmployeeID(atoi(id));
 				}
+
 			}
 			else
 			{
@@ -51,6 +61,28 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
  */
 int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 {
+	int cantEmpleados = 0;
+	int lastID;
+	Employee* pEmployee;
 
-    return 1;
+
+	if(pFile != NULL && pArrayListEmployee != NULL)
+	{
+
+		while (!feof(pFile))
+		{
+			pEmployee = (Employee*) malloc(sizeof(Employee));
+			if(fread(pEmployee,sizeof(Employee),1,pFile))
+			{
+				printEmployee(pEmployee);
+				ll_add(pArrayListEmployee,pEmployee);
+				if(!getLastEmployeeID(&lastID) || (pEmployee)->id > lastID)
+				{
+					saveLastEmployeeID((pEmployee)->id);
+				}
+				cantEmpleados++;
+			}
+		}
+	}
+    return cantEmpleados;
 }

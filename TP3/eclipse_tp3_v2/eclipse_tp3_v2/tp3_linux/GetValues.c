@@ -12,20 +12,17 @@
 
 void inputArray (char* arrayChar,int longitudMaxima, char* mensajeIngreso)
 {
+	__fpurge(stdin);
     printf("\n%s",mensajeIngreso);
     __fpurge(stdin);
-    fgets(arrayChar,longitudMaxima,stdin);
+    fgets(arrayChar,longitudMaxima-1,stdin);
     quitarSaltosArray(arrayChar);
 }
 
 void quitarSaltosArray(char* arrayChar)
 {
     int i;
-    int length;
-
-    length = strlen(arrayChar);
-
-    for (i = 0; i<length;i++)
+    for (i = 0; arrayChar[i];i++)
     {
         if (arrayChar[i] == '\n')
         {
@@ -91,7 +88,7 @@ void upperFirstLetters(char* arrayChar)
 
 void pausa(char* mensaje)
 {
-	printf("\n\n%s. Pulse <Enter> para continuar...",mensaje);
+	printf("\n\n%sPulse <Enter> para continuar...\n",mensaje);
 	__fpurge(stdin);
 	getchar();
 }

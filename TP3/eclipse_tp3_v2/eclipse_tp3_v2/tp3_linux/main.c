@@ -4,7 +4,10 @@
 #include "Controller.h"
 #include "Employee.h"
 #include "GetValues.h"
+#include "Menu.h"
 
+#define PATHCSV "data.csv"
+#define PATHBIN "data.bin"
 /****************************************************
     Menu:
      1. Cargar los datos de los empleados desde el archivo data.csv (modo texto).
@@ -24,70 +27,101 @@
 int main()
 {
 
-	int opcionIngresada = 1;
-    int i;
-    int cantEmployee;
-    Employee* auxEmployee;
+	int opcionIngresada;
+    int auxRetornoFuncion;
+    int salir = 0;
     LinkedList* listaEmpleados = ll_newLinkedList();
-
+    char* opcionesMenu[128] =	{		"Cargar los datos de los empleados desde el archivo data.csv (modo texto)",
+    									"Cargar los datos de los empleados desde el archivo data.bin (modo binario)",
+										"Alta de empleado",
+										"Modificar datos de empleado",
+										"Baja de empleado",
+										"Listar empleados",
+										"Ordenar empleados",
+										"Guardar los datos de los empleados en el archivo data.csv (modo texto)",
+										"Guardar los datos de los empleados en el archivo data.bin (modo binario)",
+										"Salir"
+    							};
+    system("clear");
     do{
-       // printMenu();
-
-
     	system("clear");
+    	opcionIngresada = inputMenuOption(opcionesMenu);
+
     	switch(opcionIngresada)
         {
     		case 1:
-				cantEmployee = controller_loadFromText("data.csv",listaEmpleados);
+    			auxRetornoFuncion = controller_loadFromText(PATHCSV,listaEmpleados);
 
-				getLastEmployeeID(&i);
-				printf("LastID: %d\n",i);
-				controller_editEmployee(listaEmpleados);
-				/* ListClients
-				i = 0;
-				while ((auxEmployee = (Employee*) ll_get(listaEmpleados, i)))
+				switch(auxRetornoFuncion)
 				{
-					i++;
-					printf("%5d | %10s | %5d | %7d\n", auxEmployee->id, auxEmployee->nombre, auxEmployee->horasTrabajadas, auxEmployee->sueldo);
-					if (i == 5)
-						i = 1000;
-				}*/
-
-				if(cantEmployee > 0)
-				{
-					pausa("Se ha cargado la lista de empleados correctamente");
-				}
-				else
-				{
-					pausa("El archivo no posee empleados o no se ha podido leer.");
+					case -1:
+						pausa("No se han cargado los datos del archivo.\n");
+					break;
+					case 0:
+						pausa("El archivo no posee empleados, no existe o no tiene permisos.\n");
+					break;
+					case 1:
+						pausa("Se ha cargado la lista de empleados correctamente.\n");
+					break;
 				}
 
 				break;
-
             case 2:
-            	pausa("AIUDA");
+            	auxRetornoFuncion = controller_loadFromBinary(PATHBIN,listaEmpleados);
+            	switch(auxRetornoFuncion)
+				{
+					case -1:
+						pausa("No se han cargado los datos del archivo.\n");
+					break;
+					case 0:
+						pausa("El archivo no posee empleados, no existe o no tiene permisos.\n");
+					break;
+					case 1:
+						pausa("Se ha cargado la lista de empleados correctamente.\n");
+					break;
+				}
+
             	break;
             case 3:
             	if(controller_addEmployee(listaEmpleados))
             	{
-            		pausa("Empleado cargado con éxito");
+            		pausa("Empleado cargado con éxito.\n");
             	}
             	else
             	{
-            		pausa("Cancelando alta de empleado");
+            		pausa("Cancelando alta de empleado.\n");
             	}
 
             	break;
             case 4:
             	controller_editEmployee(listaEmpleados);
             	break;
+            case 5:
+            	controller_removeEmployee(listaEmpleados);
+            	break;
+            case 6:
+            	controller_ListEmployee(listaEmpleados);
+				break;
+            case 7:
+            	controller_sortEmployee(listaEmpleados);
+            	break;
+            case 8:
+            	controller_saveAsText(PATHCSV,listaEmpleados);
+            	break;
+            case 9:
+            	controller_saveAsBinary(PATHBIN,listaEmpleados);
+            	break;
+            case 10:
+            	if(msjConfirm("Se perderán todos los cambios no guardados, ¿esta seguro?"))
+            	{
+            		salir = 1;
+            	}
+            	break;
             default:
-            	pausa("Opción incorrecta");
+            	pausa("Opción incorrecta.\n");
             	break;
         }
 
-        opcionIngresada = 10;
-
-    }while(opcionIngresada != 10);
+    }while(!salir);
     return 0;
 }

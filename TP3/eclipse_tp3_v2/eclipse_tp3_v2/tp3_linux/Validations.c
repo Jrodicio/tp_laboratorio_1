@@ -17,6 +17,7 @@ int stringIsAlpha(char* string)
 	{
 		string++;
 	}
+
 	return *string == '\0';
 }
 

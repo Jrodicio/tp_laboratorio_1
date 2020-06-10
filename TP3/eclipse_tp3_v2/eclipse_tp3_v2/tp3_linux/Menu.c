@@ -7,7 +7,7 @@ void mostrarMenu(char* menu[128])
 	int i;
 	for (i=0;menu[i];i++)
 	{
-		printf("%d. %s\n",i+1,menu[i]);
+		printf("\n%d. %s",i+1,menu[i]);
 	}
 	printf("\n");
 }
