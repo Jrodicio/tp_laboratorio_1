@@ -1,6 +1,5 @@
-#include <stdio.h>
 #include "Menu.h"
-#include "GetValues.h"
+
 
 void mostrarMenu(char* menu[128])
 {

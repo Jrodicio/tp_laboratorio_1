@@ -1,8 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "LinkedList.h"
-#include "Employee.h"
 #include "parser.h"
+
+
 
 /** \brief Parsea los datos de los empleados desde el archivo data.csv (modo texto).
  *
@@ -71,10 +69,9 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 
 		while (!feof(pFile))
 		{
-			pEmployee = (Employee*) malloc(sizeof(Employee));
+			pEmployee = employee_Constructor();
 			if(fread(pEmployee,sizeof(Employee),1,pFile))
 			{
-				printEmployee(pEmployee);
 				ll_add(pArrayListEmployee,pEmployee);
 				if(!getLastEmployeeID(&lastID) || (pEmployee)->id > lastID)
 				{

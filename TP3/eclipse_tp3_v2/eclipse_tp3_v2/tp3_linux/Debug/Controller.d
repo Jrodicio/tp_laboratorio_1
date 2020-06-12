@@ -1,16 +1,16 @@
-Controller.o: ../Controller.c ../LinkedList.h ../Employee.h \
- ../Controller.h ../parser.h ../GetValues.h ../Validations.h ../Menu.h
-
-../LinkedList.h:
-
-../Employee.h:
+Controller.o: ../Controller.c ../Controller.h ../parser.h ../LinkedList.h \
+ ../Employee.h ../Validations.h ../Menu.h ../GetValues.h
 
 ../Controller.h:
 
 ../parser.h:
 
-../GetValues.h:
+../LinkedList.h:
+
+../Employee.h:
 
 ../Validations.h:
 
 ../Menu.h:
+
+../GetValues.h:

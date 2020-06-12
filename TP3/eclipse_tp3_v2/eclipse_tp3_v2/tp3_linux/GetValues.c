@@ -1,13 +1,3 @@
-/*
- * GetValues.c
- *
- *  Created on: 8 jun. 2020
- *      Author: julian
- */
-#include <stdio.h>
-#include <stdio_ext.h>
-#include <string.h>
-#include <ctype.h>
 #include "GetValues.h"
 
 void inputArray (char* arrayChar,int longitudMaxima, char* mensajeIngreso)

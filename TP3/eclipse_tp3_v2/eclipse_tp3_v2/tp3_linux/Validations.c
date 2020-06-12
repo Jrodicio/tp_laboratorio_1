@@ -4,21 +4,25 @@
  *  Created on: 6 jun. 2020
  *      Author: julian
  */
-#include <string.h>
+
 #include "Validations.h"
 
 
 int stringIsAlpha(char* string)
 {
 	char c;
+	int retorno = 0;
 	char* specialChars = "ñÑáéíóúÁÉÍÓÚ";
 
-	while ((c = *string) && ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || charInString(c,specialChars) || c == ' '))
+	if (strlen(string))
 	{
-		string++;
+		while ((c = *string) && ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || charInString(c,specialChars) || c == ' '))
+		{
+			string++;
+		}
+		retorno = (*string == '\0');
 	}
-
-	return *string == '\0';
+	return retorno;
 }
 
 int charInString(char character, char* string)
@@ -40,7 +44,7 @@ int charInString(char character, char* string)
 	return retorno;
 }
 
-int intRange(int number, int max, int min)
+int intRange(int number, int min, int max)
 {
 	int retorno = 0;
 	if (number >= min && number <= max)

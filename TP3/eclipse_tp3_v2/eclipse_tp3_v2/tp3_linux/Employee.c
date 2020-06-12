@@ -1,51 +1,58 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "Employee.h"
-#include "GetValues.h"
-#include "Validations.h"
-#include "Menu.h"
+
 
 /*Create*/
+
+Employee* employee_Constructor()
+{
+	return (Employee*) malloc(sizeof(Employee));
+}
+
+
 Employee* employee_new()
 {
 	/*Crea y retorna pEmployee*/
 
 	int newID;
-	char newName[128];
-	int newWorkedHours;
-	int newSalary;
+	char newName[128] = " ";
+	int newWorkedHours = 0;
+	int newSalary = 0;
 
-	Employee* pEmployee = (Employee*) malloc(sizeof(Employee));
+	Employee* pEmployee = employee_Constructor();
 
 	getNewID(&newID);
-
-	while(!inputName(newName))
-	{
-		pausa("El nombre es inválido");
-	}
-
-	while(!inputWorkedHours(&newWorkedHours))
-	{
-		pausa("Las horas trabajadas deben ser mayores a 0");
-	}
-
-	while(!inputSalary(&newSalary))
-	{
-		pausa("El salario debe ser mayor a 0");
-	}
-
 	employee_setId(pEmployee,newID);
 	employee_setNombre(pEmployee,newName);
 	employee_setHorasTrabajadas(pEmployee,newWorkedHours);
 	employee_setSueldo(pEmployee,newSalary);
+
+	printEmployeeHeader();
+	printEmployee(pEmployee);
+
+	inputName(newName);
+	employee_setNombre(pEmployee,newName);
+	system("clear");
+
+	printEmployeeHeader();
+	printEmployee(pEmployee);
+
+	inputWorkedHours(&newWorkedHours);
+	employee_setHorasTrabajadas(pEmployee,newWorkedHours);
+	system("clear");
+
+	printEmployeeHeader();
+	printEmployee(pEmployee);
+
+	inputSalary(&newSalary);
+	employee_setSueldo(pEmployee,newSalary);
+	system("clear");
 
 	return pEmployee;
 }
 
 Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr,char* sueldoStr)
 {
-	Employee* pEmployee = (Employee*) malloc(sizeof(Employee));
+	Employee* pEmployee = employee_Constructor();
 
 	employee_setId(pEmployee,atoi(idStr));
 	employee_setNombre(pEmployee,nombreStr);
@@ -94,7 +101,7 @@ int employee_getNombre(Employee* this,char* nombre)
 int employee_setSueldo(Employee* this,int sueldo)
 {
 	int retorno = 0;
-	if(this != NULL && sueldo > 0)
+	if(this != NULL && sueldo >= 0)
 	{
 		this->sueldo = sueldo;
 		retorno = 1;
@@ -247,20 +254,46 @@ void getNewID(int* newID)
 
 int inputName(char* name)
 {
-	inputArray(name,127,"Ingrese nombre del empleado: ");
-	upperFirstLetters(name);
+	int nombreCorrecto = 1;
+	do
+	{
+		inputArray(name,127,"Ingrese nombre del empleado: ");
+		upperFirstLetters(name);
+		if(!stringIsAlpha(name))
+		{
+			pausa("El nombre no es correcto, vuelva a intentarlo.\n");
+			nombreCorrecto = 0;
+		}
+		else
+		{
+			nombreCorrecto = 1;
+		}
+	} while (!nombreCorrecto);
 
-	return stringIsAlpha(name);
+	return nombreCorrecto;
 }
 
 int inputWorkedHours(int* workedHours)
 {
-	return inputPositiveInt("Ingrese horas trabajadas: ", workedHours);
+	int retorno = 0;
+
+	while(!inputPositiveInt("Ingrese horas trabajadas: ", workedHours))
+	{
+		pausa("Las horas trabajadas no pueden ser menores a 0.\n");
+	}
+	retorno = 1;
+	return retorno;
 }
 
 int inputSalary(int* salary)
 {
-	return inputPositiveInt("Ingrese sueldo: ", salary);
+	int retorno = 0;
+	while(!inputPositiveInt("Ingrese sueldo: ", salary))
+	{
+		pausa("El salario no puede ser menor a 0.\n");
+	}
+	retorno = 1;
+	return retorno;
 }
 
 
@@ -268,45 +301,53 @@ int editEmployee(Employee* myEmployee)
 {
 	int option;
 	char name[128];
+	int id;
 	int workedHours;
 	int salary;
 	int retorno = -1;
 	int salir = 0;
 	int edicionesSinGuardar = 0;
+	Employee auxEmployee;
 	char* menu[128] = {"Editar nombre", "Editar horas trabajadas", "Editar salario", "Guardar cambios", "Salir"};
 
+	employee_getId(myEmployee,&id);
 	employee_getNombre(myEmployee,name);
 	employee_getHorasTrabajadas(myEmployee,&workedHours);
 	employee_getSueldo(myEmployee,&salary);
 
+	employee_setId(&auxEmployee,id);
+	employee_setNombre(&auxEmployee,name);
+	employee_setHorasTrabajadas(&auxEmployee,workedHours);
+	employee_setSueldo(&auxEmployee,salary);
+
 	do
 	{
-		printf("\n\n%d -- %s -- %d -- %d\n",myEmployee->id,myEmployee->nombre, myEmployee->horasTrabajadas, myEmployee->sueldo);
+		system("clear");
+		printEmployeeHeader();
+		printEmployee(myEmployee);
+		printEmployee(&auxEmployee);
+
 		option = inputMenuOption(menu);
 		switch(option)
 		{
 			case 1:
-				while(!inputName(name))
-				{
-					pausa("El nombre es inválido");
-				}
+				inputName(name);
+				employee_setNombre(&auxEmployee,name);
 				edicionesSinGuardar = 1;
 				break;
+
 			case 2:
-				while(!inputWorkedHours(&workedHours))
-				{
-					pausa("Las horas trabajadas deben ser mayores a 0");
-				}
+				inputWorkedHours(&workedHours);
+				employee_setHorasTrabajadas(&auxEmployee,workedHours);
 				edicionesSinGuardar = 1;
 				break;
 
 			case 3:
-				while(!inputSalary(&salary))
-				{
-					pausa("El salario debe ser mayor a 0");
-				}
+				inputSalary(&salary);
+				employee_setSueldo(&auxEmployee,salary);
 				edicionesSinGuardar = 1;
 				break;
+
 			case 4:
 				if(edicionesSinGuardar)
 				{
@@ -317,7 +358,11 @@ int editEmployee(Employee* myEmployee)
 						employee_setSueldo(myEmployee,salary);
 						edicionesSinGuardar = 0;
 						retorno = 1;
-						pausa("Los cambios se han guardado");
+						pausa("Los cambios se han guardado\n");
+					}
+					else
+					{
+						pausa("No se han aplicado modificaciones.\n");
 					}
 				}
 				break;

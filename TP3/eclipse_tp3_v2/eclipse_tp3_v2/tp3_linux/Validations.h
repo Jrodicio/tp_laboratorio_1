@@ -1,15 +1,9 @@
-/*
- * Validations.h
- *
- *  Created on: 6 jun. 2020
- *      Author: julian
- */
-
 #ifndef VALIDATIONS_H_
 #define VALIDATIONS_H_
+#include <string.h>
 
 int stringIsAlpha(char* string);
 int charInString(char character, char* string);
-int intRange(int number, int max, int min);
+int intRange(int number, int min, int max);
 
 #endif /* VALIDATIONS_H_ */

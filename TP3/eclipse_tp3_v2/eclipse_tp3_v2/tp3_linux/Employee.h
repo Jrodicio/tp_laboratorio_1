@@ -1,6 +1,10 @@
 #ifndef employee_H_INCLUDED
 #define employee_H_INCLUDED
 
+#include <stdlib.h>
+#include "Validations.h"
+#include "Menu.h"
+
 typedef struct
 {
     int id;
@@ -9,6 +13,7 @@ typedef struct
     int sueldo;
 }Employee;
 
+Employee* employee_Constructor();
 Employee* employee_new();
 //Employee* employee_newParametros(int id,char* nombre,int horasTrabajadas,int sueldo);
 Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr,char* sueldoStr);

@@ -1,12 +1,10 @@
-/*
- * GetValues.h
- *
- *  Created on: 8 jun. 2020
- *      Author: julian
- */
-
 #ifndef GETVALUES_H_
 #define GETVALUES_H_
+
+#include <stdio.h>
+#include <stdio_ext.h>
+#include <string.h>
+#include <ctype.h>
 
 void inputArray (char* arrayChar,int longitudMaxima, char* mensajeIngreso);
 void quitarSaltosArray(char* arrayChar);

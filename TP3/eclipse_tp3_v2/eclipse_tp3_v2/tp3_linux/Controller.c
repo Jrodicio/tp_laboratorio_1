@@ -1,13 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "LinkedList.h"
-#include "Employee.h"
 #include "Controller.h"
-#include "parser.h"
-#include "GetValues.h"
-#include "Validations.h"
-#include "Menu.h"
+
 
 int controller_loadFromText(char* path, LinkedList* pArrayListEmployee)
 {
@@ -79,7 +71,11 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 
 	if (pArrayListEmployee != NULL)
 	{
+		system("clear");
 		newEmployee = employee_new();
+
+		printEmployeeHeader();
+		printEmployee(newEmployee);
 
 		if(msjConfirm("¿Quiere guardar al nuevo empleado?"))
 		{
@@ -107,6 +103,7 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 	{
 		do
 		{
+			system("clear");
 			opcionIngresada = inputMenuOption(opciones);
 			switch(opcionIngresada)
 			{
@@ -114,7 +111,7 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 						myEmployee = controller_findEmployeeByID(pArrayListEmployee);
 						if (myEmployee == NULL)
 						{
-							pausa("No se encontraron empleados con el ID ingresado");
+							pausa("No se encontraron empleados con el ID ingresado\n");
 						}
 						else
 						{
@@ -122,10 +119,10 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 						}
 					break;
 				case 2:
-					pausa("Volviendo al menú anterior");
+					pausa("Volviendo al menú anterior\n");
 					break;
 				default:
-					pausa("Opción incorrecta");
+					pausa("Opción incorrecta\n");
 					break;
 			}
 		}while((opcionIngresada != 1 && opcionIngresada != 2) || (opcionIngresada == 1 && myEmployee == NULL));
@@ -168,12 +165,14 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
 	int opcionIngresada;
 	Employee* myEmployee;
 	int salir = 0;
+	int retorno = 0;
 	char* opciones[128] = {"Buscar empleado por ID","Volver al menú anterior"};
 
 	if(pArrayListEmployee != NULL)
 	{
 		do
 		{
+			system("clear");
 			opcionIngresada = inputMenuOption(opciones);
 			switch(opcionIngresada)
 			{
@@ -181,7 +180,7 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
 						myEmployee = controller_findEmployeeByID(pArrayListEmployee);
 						if (myEmployee == NULL)
 						{
-							pausa("No se encontraron empleados con el ID ingresado");
+							pausa("No se encontraron empleados con el ID ingresado.\n");
 						}
 						else
 						{
@@ -189,22 +188,22 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
 							printEmployee(myEmployee);
 							if(msjConfirm("¿Está seguro que quiere eliminar al empleado?"))
 							{
-								ll_remove(pArrayListEmployee,ll_indexOf(pArrayListEmployee,myEmployee));
+								retorno = !ll_remove(pArrayListEmployee,ll_indexOf(pArrayListEmployee,myEmployee));
 								salir = 1;
 							}
 						}
 					break;
 				case 2:
-					pausa("Volviendo al menú anterior");
+					pausa("Volviendo al menú anterior.\n");
 					salir = 1;
 					break;
 				default:
-					pausa("Opción incorrecta");
+					pausa("Opción incorrecta.\n");
 					break;
 			}
 		}while(!salir);
 	}
-	return 1;
+	return retorno;
 }
 
 
@@ -214,11 +213,13 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
 	int i;
 	int maxReg;
 	int page = 1;
+	int auxPage;
 	int len = ll_len(pArrayListEmployee);
 	int maxPage = (len+99)/100;
 
 	do
 	{
+		system("clear");
 		i = (page-1)*100;
 		maxReg = (page*100);
 		printEmployeeHeader();
@@ -228,14 +229,18 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
 			printEmployee(auxEmployee);
 		}
 		printf("Mostrando página %d/%d",page,maxPage);
-		do
-		{
-			inputInt("Ingrese página o '0' para salir: ",&page);
 
-		}while(page>maxPage);
+		inputInt("Ingrese número de página ó '0' para salir: ",&auxPage);
+		if(auxPage>maxPage || auxPage < 0)
+		{
+			pausa("Número de página inválida, vuelva a intentarlo.\n");
+		}
+		else
+		{
+			page = auxPage;
+		}
 
 	}while(page != 0);
-
 
 	return 1;
 }
@@ -245,29 +250,34 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
 	char* opciones[128] = {"Ordenar por nombre ASC", "Ordenar por nombre DESC", "Ordenar por ID ASC", "Ordenar por ID DESC", "Volver al menú anterior"};
 	int opcionIngresada;
+	int order;
 
 	do
 	{
+		system("clear");
 		opcionIngresada = inputMenuOption(opciones);
+
+		order = opcionIngresada%2;
+
 		switch(opcionIngresada)
 		{
 			case 1:
-				ll_sort(pArrayListEmployee,employee_CompareByName,1);
-				break;
 			case 2:
-				ll_sort(pArrayListEmployee,employee_CompareByName,0);
+				printf("Se está ordenando la lista...\n");
+				ll_sort(pArrayListEmployee,employee_CompareByName,order);
+				pausa("Lista ordenada correctamente.\n");
 				break;
 			case 3:
-				ll_sort(pArrayListEmployee,employee_CompareById,1);
-				break;
 			case 4:
-				ll_sort(pArrayListEmployee,employee_CompareById,0);
+				printf("Se está ordenando la lista...\n");
+				ll_sort(pArrayListEmployee,employee_CompareById,order);
+				pausa("Lista ordenada correctamente.\n");
 				break;
 			case 5:
-				pausa("Volviendo al menú anterior.");
+				pausa("Volviendo al menú anterior.\n");
 				break;
 			default:
-				pausa("Opción inválida. Vuelva a intentarlo.");
+				pausa("Opción inválida. Vuelva a intentarlo.\n");
 				break;
 		}
 

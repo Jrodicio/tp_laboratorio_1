@@ -1,10 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "LinkedList.h"
 #include "Controller.h"
-#include "Employee.h"
-#include "GetValues.h"
-#include "Menu.h"
 
 #define PATHCSV "data.csv"
 #define PATHBIN "data.bin"
@@ -45,7 +39,13 @@ int main()
 
     do{
     	system("clear");
+
     	opcionIngresada = inputMenuOption(opcionesMenu);
+    	if(intRange(opcionIngresada,4,9) && !ll_len(listaEmpleados))
+    	{
+    		pausa("No tiene empleados cargados en sistema aún.\n");
+    		continue;
+    	}
 
     	switch(opcionIngresada)
         {
@@ -64,8 +64,8 @@ int main()
 						pausa("Archivo cargado correctamente.\n");
 					break;
 				}
-
 				break;
+
             case 2:
             	auxRetornoFuncion = controller_loadFromBinary(PATHBIN,listaEmpleados);
 				switch(auxRetornoFuncion)
@@ -80,11 +80,10 @@ int main()
 						pausa("Archivo cargado correctamente.\n");
 					break;
 				}
-
             	break;
+
             case 3:
             	auxRetornoFuncion = controller_addEmployee(listaEmpleados);
-
             	switch(auxRetornoFuncion)
             	{
             		case -1:
@@ -97,32 +96,57 @@ int main()
             			pausa("Empleado cargado con éxito.\n");
             			break;
             	}
-
             	break;
+
             case 4:
             	controller_editEmployee(listaEmpleados);
             	break;
+
             case 5:
-            	controller_removeEmployee(listaEmpleados);
+            	if(controller_removeEmployee(listaEmpleados))
+            	{
+            		pausa("El empleado se ha eliminado correctamente de la lista.\n");
+            	}
             	break;
+
             case 6:
             	controller_ListEmployee(listaEmpleados);
 				break;
+
             case 7:
             	controller_sortEmployee(listaEmpleados);
             	break;
+
             case 8:
-            	controller_saveAsText(PATHCSV,listaEmpleados);
+            	if(controller_saveAsText(PATHCSV,listaEmpleados))
+            	{
+					pausa("La lista de empleados se guardo correctamente.\n");
+				}
+            	else
+            	{
+            		pausa("No se ha podido guardar la lista de empleados.\n");
+            	}
             	break;
+
             case 9:
-            	controller_saveAsBinary(PATHBIN,listaEmpleados);
+            	if(controller_saveAsBinary(PATHBIN,listaEmpleados))
+            	{
+            		pausa("La lista de empleados se guardo correctamente.\n");
+            	}
+            	else
+				{
+					pausa("No se ha podido guardar la lista de empleados.\n");
+				}
             	break;
+
             case 10:
             	if(msjConfirm("Se perderán todos los cambios no guardados, ¿esta seguro?"))
             	{
+            		ll_deleteLinkedList(listaEmpleados);
             		salir = 1;
             	}
             	break;
+
             default:
             	pausa("Opción incorrecta.\n");
             	break;

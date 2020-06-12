@@ -1,10 +1,10 @@
-Employee.o: ../Employee.c ../Employee.h ../GetValues.h ../Validations.h \
- ../Menu.h
+Employee.o: ../Employee.c ../Employee.h ../Validations.h ../Menu.h \
+ ../GetValues.h
 
 ../Employee.h:
-
-../GetValues.h:
 
 ../Validations.h:
 
 ../Menu.h:
+
+../GetValues.h:
