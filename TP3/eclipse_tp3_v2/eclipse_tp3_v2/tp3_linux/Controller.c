@@ -11,82 +11,66 @@
 
 int controller_loadFromText(char* path, LinkedList* pArrayListEmployee)
 {
-	int retorno = 0;
-	int cargarArchivo = 1;
-	FILE* employeeFileCSV;
-
-	if(path != NULL && pArrayListEmployee != NULL)
-	{
-		if(!ll_isEmpty(pArrayListEmployee))
-		{
-			if(msjConfirm("Ya se ha leído un archivo previamente, ¿quiere sobreescribir los datos?"))
-			{
-				ll_clear(pArrayListEmployee);
-			}
-			else
-			{
-				cargarArchivo = 0;
-			}
-		}
-		if(cargarArchivo)
-		{
-			employeeFileCSV = fopen(path,"r");
-			if (employeeFileCSV != NULL)
-			{
-				retorno = parser_EmployeeFromText(employeeFileCSV,pArrayListEmployee);
-				fclose(employeeFileCSV);
-			}
-
-			if (retorno > 0)
-			{
-				retorno = 1;
-			}
-		}
-
-	}
+	int retorno = controller_loadFile(path,pArrayListEmployee,"r");
 	return retorno;
 }
 
 
 int controller_loadFromBinary(char* path, LinkedList* pArrayListEmployee)
 {
+	int retorno = controller_loadFile(path,pArrayListEmployee,"rb");
+	return retorno;
+}
 
+int controller_loadFile(char* path, LinkedList* pArrayListEmployee, char* typeRead)
+{
 	int retorno = 0;
+	int cantEmployee = -1;
 	int cargarArchivo = 1;
-	FILE* employeeFileBIN;
+	FILE* employeeFile;
 
 	if(path != NULL && pArrayListEmployee != NULL)
 	{
 		if(!ll_isEmpty(pArrayListEmployee))
 		{
-			if(msjConfirm("Ya se ha leído un archivo previamente, ¿quiere sobreescribir los datos?"))
-			{
-				ll_clear(pArrayListEmployee);
-			}
-			else
+			if(!msjConfirm("Ya se ha leído un archivo previamente, ¿quiere sobreescribir los datos?"))
 			{
 				cargarArchivo = 0;
 			}
 		}
 		if(cargarArchivo)
 		{
-			employeeFileBIN = fopen(path,"rb");
-			if (employeeFileBIN != NULL)
+			employeeFile = fopen(path,typeRead);
+			if (employeeFile != NULL)
 			{
-				retorno = parser_EmployeeFromBinary(employeeFileBIN,pArrayListEmployee);
-				fclose(employeeFileBIN);
-			}
-
-			if (retorno > 0)
-			{
-				retorno = 1;
+				ll_clear(pArrayListEmployee);
+				if(!strcmp(typeRead,"rb"))
+				{
+					cantEmployee = parser_EmployeeFromBinary(employeeFile,pArrayListEmployee);
+				}
+				else if(!strcmp(typeRead,"r"))
+				{
+					cantEmployee = parser_EmployeeFromText(employeeFile,pArrayListEmployee);
+				}
+				fclose(employeeFile);
 			}
 		}
 
 	}
+	if (!cargarArchivo)
+	{
+		retorno = -1;
+	}
+	else if (cantEmployee == -1)
+	{
+		retorno = 0;
+	}
+	else
+	{
+		retorno = 1;
+	}
 	return retorno;
 }
-
 
 int controller_addEmployee(LinkedList* pArrayListEmployee)
 {
@@ -105,6 +89,7 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 		else
 		{
 			free(newEmployee);
+			retorno = -1;
 		}
 	}
 	return retorno;
@@ -294,38 +279,22 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 
 int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
 {
-	int i;
-	int len;
-	FILE* employeeFileCSV;
-	Employee* auxEmployee;
-
-	int retorno = 0;
-
-	if(path != NULL && pArrayListEmployee != NULL)
-	{
-		len = ll_len(pArrayListEmployee);
-		employeeFileCSV = fopen(path,"w");
-		if (employeeFileCSV != NULL)
-		{
-			fprintf(employeeFileCSV, "id,nombre,horasTrabajadas,sueldo\n");
-			for(i=0;i<len;i++)
-			{
-				auxEmployee = ll_get(pArrayListEmployee,i);
-				fprintf(employeeFileCSV, "%d,%s,%d,%d\n",auxEmployee->id,auxEmployee->nombre,auxEmployee->horasTrabajadas,auxEmployee->sueldo);
-			}
-			retorno = i;
-		}
-		fclose(employeeFileCSV);
-	}
+	int retorno = controller_saveFile(path, pArrayListEmployee,"w");
 	return retorno;
 }
 
 
 int controller_saveAsBinary(char* path, LinkedList* pArrayListEmployee)
 {
+	int retorno = controller_saveFile(path, pArrayListEmployee,"wb");
+	return retorno;
+}
+
+int controller_saveFile(char* path, LinkedList* pArrayListEmployee, char* typeOpen)
+{
 	int i;
 	int len;
-	FILE* employeeFileBIN;
+	FILE* employeeFile;
 	Employee* auxEmployee;
 
 	int retorno = 0;
@@ -333,18 +302,28 @@ int controller_saveAsBinary(char* path, LinkedList* pArrayListEmployee)
 	if(path != NULL && pArrayListEmployee != NULL)
 	{
 		len = ll_len(pArrayListEmployee);
-		employeeFileBIN = fopen(path,"wb");
-		if (employeeFileBIN != NULL)
+		employeeFile = fopen(path,typeOpen);
+		if (employeeFile != NULL)
 		{
 			for(i=0;i<len;i++)
 			{
 				auxEmployee = ll_get(pArrayListEmployee,i);
-				fwrite(auxEmployee, sizeof(Employee),1,employeeFileBIN);
-				//fprintf(employeeFileBIN, "%d,%s,%d,%d\n",auxEmployee->id,auxEmployee->nombre,auxEmployee->horasTrabajadas,auxEmployee->sueldo);
+				if (!strcmp(typeOpen,"wb"))
+				{
+					fwrite(auxEmployee, sizeof(Employee),1,employeeFile);
+				}
+				else if (!strcmp(typeOpen,"w"))
+				{
+					if (i == 0)
+					{
+						fprintf(employeeFile, "id,nombre,horasTrabajadas,sueldo\n");
+					}
+					fprintf(employeeFile, "%d,%s,%d,%d\n",auxEmployee->id,auxEmployee->nombre,auxEmployee->horasTrabajadas,auxEmployee->sueldo);
+				}
 			}
 			retorno = i;
+			fclose(employeeFile);
 		}
-		fclose(employeeFileBIN);
 	}
 	return retorno;
 }

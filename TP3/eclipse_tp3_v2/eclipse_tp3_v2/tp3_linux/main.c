@@ -42,7 +42,7 @@ int main()
 										"Guardar los datos de los empleados en el archivo data.bin (modo binario)",
 										"Salir"
     							};
-    system("clear");
+
     do{
     	system("clear");
     	opcionIngresada = inputMenuOption(opcionesMenu);
@@ -58,38 +58,44 @@ int main()
 						pausa("No se han cargado los datos del archivo.\n");
 					break;
 					case 0:
-						pausa("El archivo no posee empleados, no existe o no tiene permisos.\n");
+						pausa("El archivo no existe o no tiene acceso al mismo.\n");
 					break;
 					case 1:
-						pausa("Se ha cargado la lista de empleados correctamente.\n");
+						pausa("Archivo cargado correctamente.\n");
 					break;
 				}
 
 				break;
             case 2:
             	auxRetornoFuncion = controller_loadFromBinary(PATHBIN,listaEmpleados);
-            	switch(auxRetornoFuncion)
+				switch(auxRetornoFuncion)
 				{
 					case -1:
 						pausa("No se han cargado los datos del archivo.\n");
 					break;
 					case 0:
-						pausa("El archivo no posee empleados, no existe o no tiene permisos.\n");
+						pausa("El archivo no existe o no tiene acceso al mismo.\n");
 					break;
 					case 1:
-						pausa("Se ha cargado la lista de empleados correctamente.\n");
+						pausa("Archivo cargado correctamente.\n");
 					break;
 				}
 
             	break;
             case 3:
-            	if(controller_addEmployee(listaEmpleados))
+            	auxRetornoFuncion = controller_addEmployee(listaEmpleados);
+
+            	switch(auxRetornoFuncion)
             	{
-            		pausa("Empleado cargado con éxito.\n");
-            	}
-            	else
-            	{
-            		pausa("Cancelando alta de empleado.\n");
+            		case -1:
+            			pausa("Cancelando alta de empleado.\n");
+            			break;
+            		case 0:
+            			pausa("Hubo un error al intentar dar de alta al empleado.\n");
+            			break;
+            		case 1:
+            			pausa("Empleado cargado con éxito.\n");
+            			break;
             	}
 
             	break;

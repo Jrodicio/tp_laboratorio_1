@@ -45,8 +45,6 @@ Employee* employee_new()
 
 Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr,char* sueldoStr)
 {
-	//Crea pEmployee. Setea datos y retorna.
-
 	Employee* pEmployee = (Employee*) malloc(sizeof(Employee));
 
 	employee_setId(pEmployee,atoi(idStr));
