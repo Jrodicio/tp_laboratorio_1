@@ -12,4 +12,3 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee);
 int controller_saveFile(char* path, LinkedList* pArrayListEmployee, char* typeOpen);
 int controller_editEmployee(LinkedList* pArrayListEmployee);
 Employee* controller_findEmployeeByID(LinkedList* pArrayListEmployee);
-
