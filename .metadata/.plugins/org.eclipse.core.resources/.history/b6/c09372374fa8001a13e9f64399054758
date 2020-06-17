@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "LinkedList.h"
+#include "Employee.h"
+
+/** \brief Parsea los datos de los empleados desde el archivo data.csv (modo texto).
+ *
+ * \param pFile FILE*
+ * \param pArrayListEmployee LinkedList*
+ * \return int
+ *
+ */
+int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
+{
+	int cantEmpleados = -1;
+	Employee myEmployee;
+	Employee* pEmployee;
+
+	pEmployee = &myEmployee;
+
+	if(pFile != NULL && pArrayListEmployee != NULL)
+	{
+		while (!feof(pFile))
+		{
+
+			if(cantEmpleados > -1)
+			{
+				fscanf(pFile, "%d,%[^,],%d,%d\n", &myEmployee.id, myEmployee.nombre, &myEmployee.horasTrabajadas, &myEmployee.sueldo);
+
+				if (cantEmpleados < 3)
+				{
+					printf("%5d | %10s | %5d | %d\n", myEmployee.id, myEmployee.nombre, myEmployee.horasTrabajadas, myEmployee.sueldo);
+					printf("%5d | %10s | %5d | %d\n", myEmployee.id, myEmployee.nombre, myEmployee.horasTrabajadas, myEmployee.sueldo);
+				}
+
+
+				ll_add(pArrayListEmployee,pEmployee);
+			}
+			cantEmpleados++;
+		}
+		//free(myEmployee);
+	}
+    return cantEmpleados;
+}
+
+/** \brief Parsea los datos de los empleados desde el archivo data.csv (modo binario).
+ *
+ * \param path char*
+ * \param pArrayListEmployee LinkedList*
+ * \return int
+ *
+ */
+int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
+{
+
+    return 1;
+}

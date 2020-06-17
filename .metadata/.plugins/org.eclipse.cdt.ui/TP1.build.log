@@ -1,0 +1,6 @@
+19:00:09 **** Build of configuration Debug for project TP1 ****
+make all 
+make: No se hace nada para 'all'.
+
+19:00:09 Build Finished. 0 errors, 0 warnings. (took 581ms)
+

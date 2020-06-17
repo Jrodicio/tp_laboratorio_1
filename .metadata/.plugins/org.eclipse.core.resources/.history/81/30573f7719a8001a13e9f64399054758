@@ -1,0 +1,41 @@
+/*
+ * Validations.c
+ *
+ *  Created on: 6 jun. 2020
+ *      Author: julian
+ */
+#include <string.h>
+#include "Validations.h"
+
+
+int stringIsAlpha(char* string)
+{
+	char c;
+	int retorno = 1;
+	char* specialChars = "ñÑáéíóúÁÉÍÓÚ";
+
+	while ((c = *string) && ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || charInString(c,specialChars) || c == ' '))
+	{
+		string++;
+	}
+	return *string == '\0';
+}
+
+int charInString(char character, char* string)
+{
+	int i;
+	char cString;
+	int lenString = strlen(string);
+	int retorno = 0;
+
+	for(i=0;i<lenString;i++)
+	{
+		cString = string[i];
+		if(character == cString)
+		{
+			retorno = 1;
+			break;
+		}
+	}
+	return retorno;
+}
