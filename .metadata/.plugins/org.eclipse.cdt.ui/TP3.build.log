@@ -1,45 +1,6 @@
-19:34:03 **** Incremental Build of configuration Debug for project TP3 ****
+18:01:12 **** Incremental Build of configuration Debug for project TP3 ****
 make all 
-Building file: ../Controller.c
-Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"Controller.d" -MT"Controller.o" -o "Controller.o" "../Controller.c"
-Finished building: ../Controller.c
- 
-Building file: ../Employee.c
-Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"Employee.d" -MT"Employee.o" -o "Employee.o" "../Employee.c"
-Finished building: ../Employee.c
- 
-Building file: ../GetValues.c
-Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"GetValues.d" -MT"GetValues.o" -o "GetValues.o" "../GetValues.c"
-Finished building: ../GetValues.c
- 
-Building file: ../Menu.c
-Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"Menu.d" -MT"Menu.o" -o "Menu.o" "../Menu.c"
-Finished building: ../Menu.c
- 
-Building file: ../Validations.c
-Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"Validations.d" -MT"Validations.o" -o "Validations.o" "../Validations.c"
-Finished building: ../Validations.c
- 
-Building file: ../main.c
-Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"main.d" -MT"main.o" -o "main.o" "../main.c"
-Finished building: ../main.c
- 
-Building file: ../parser.c
-Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"parser.d" -MT"parser.o" -o "parser.o" "../parser.c"
-Finished building: ../parser.c
- 
-Building target: TP3
-Invoking: GCC C Linker
-gcc  -o "TP3"  ./Controller.o ./Employee.o ./GetValues.o ./Menu.o ./Validations.o ./main.o ./parser.o    /home/julian/GitHub/tp_laboratorio_1/TP3/eclipse_tp3_v2/eclipse_tp3_v2/tp3_linux/LinkedList.a
-Finished building target: TP3
- 
+make: No se hace nada para 'all'.
 
-19:34:05 Build Finished. 0 errors, 0 warnings. (took 2s.298ms)
+18:01:13 Build Finished. 0 errors, 0 warnings. (took 548ms)
 
